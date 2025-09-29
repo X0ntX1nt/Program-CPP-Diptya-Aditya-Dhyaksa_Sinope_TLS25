@@ -1,0 +1,34 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+int main() {
+    
+    vector<int> durasi = {3, 80, 20};                    
+    vector<string> warna = {"Kuning", "Merah", "Hijau"}; 
+
+    int total = 0;
+    for (int d : durasi) total += d;
+
+    int offset = 45;
+
+    long long t;
+    while (true) {
+        cout << "Masukkan detik (atau -1 untuk keluar): ";
+        if (!(cin >> t)) break;     
+        if (t == -1) break;
+
+        int relatif = (int)((t - offset) % total);
+        if (relatif < 0) relatif += total; 
+
+        int sum = 0, idx = 0;
+        for (int i = 0; i < (int)durasi.size(); ++i) {
+            sum += durasi[i];
+            if (relatif < sum) { idx = i; break; }
+        }
+
+        cout << "Detik ke-" << t << " -> " << warna[idx] << '\n';
+    }
+    return 0;
+}
